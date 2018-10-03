@@ -45,40 +45,39 @@ The pycppembed tool takes the following commandline arguments::
 
 
 
-Let's say we have a file called logo.png which we would like to embed into a
+Let's say we have a file called ``icon.png`` which we would like to embed into a
 c++ library.
 
 First call the pycppembed tool::
 
-    mkdir cpp
-    pycppembed logo.png image_files cpp/
+    mkdir sources
+    pycppembed icon.png images sources/
 
-This would then create two files in the cpp folder::
+This would then create two files in the sources folder::
 
-    ls cpp/
-    > image_files.cpp  image_files.hpp
+    ls sources/
+    > images.cpp  images.hpp
 
 Let's make a small application which simply prints out the size of the embedded
 image file::
 
-    #include "image_files.hpp"
+    #include "images.hpp"
 
     #include <cassert>
     #include <iostream>
 
     int main()
     {
-        auto img = pycppembed::image_files::get_file("logo.png");
-
-        /// if the given file wasn't found the pointer will be null.
-        assert(img.data != nullptr);
-
-        std::cout << "Size of img: " << img.size << std::endl;
+        auto icon = pycppembed::images::get_file("icon.png");
+        assert(icon.data != nullptr);
+        std::cout << "icon size: " << icon.size << std::endl;
         return 0;
     }
 
-We add this to the file cpp/main.cpp, and compile the project::
 
-    g++ main.cpp image_files.cpp -o embedded_img
-    ./embedded_img
-    > Size of img: 0
+We add this to the file sources/main.cpp, and compile the project::
+
+    cd sources/
+    g++ main.cpp images.cpp -o example
+    ./example
+    > Size of img: 15786
