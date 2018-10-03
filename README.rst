@@ -1,10 +1,11 @@
 pycppembed
 ==========
-.. Comment out badges for now
-.. .. image:: https://ci.appveyor.com/api/projects/status/rvumml3m3l08sjsl?svg=true
-..     :target: https://ci.appveyor.com/project/SteinwurfApS/pycppembed
-.. .. image:: https://travis-ci.org/steinwurf/pycppembed.svg?branch=master
-..    :target: https://travis-ci.org/steinwurf/pycppembed
+
+.. image:: https://img.shields.io/appveyor/ci/SteinwurfApS/pycppembed/master.svg?style=flat-square&logo=appveyor
+    :target: https://ci.appveyor.com/project/SteinwurfApS/pycppembed
+
+.. image:: https://img.shields.io/travis-ci/steinwurf/pycppembed/master.svg?style=flat-square&logo=travis
+    :target: https://travis-ci.org/steinwurf/pycppembed
 
 pycppembed is a python c++ resource compiler.
 
