@@ -5,6 +5,7 @@ HPP_FILE ="""// Auto generated, do not modify
 #pragma once
 
 #include <algorithm>
+#include <cassert>
 #include <cstdint>
 #include <map>
 #include <string>
@@ -20,28 +21,31 @@ public:
 
     struct file
     {{
-        const uint8_t* data = nullptr;
-        uint64_t size = 0;
+        file(const uint8_t* data, uint64_t size) :
+            m_data(data),
+            m_size(size)
+        {{
+            assert(m_data != nullptr);
+        }}
+        const uint8_t* m_data;
+        uint64_t m_size;
     }};
+
+    static bool has_file(const std::string& name)
+    {{
+        return m_files.count(name) == 1;
+    }}
 
     static file get_file(const std::string& name)
     {{
-        if (m_files.count(name) == 0)
-            return file();
         return m_files.at(name);
     }}
 
-    static std::vector<std::string> files()
+    static std::vector<std::string> file_names()
     {{
-        std::vector<std::string> keys;
-        std::transform(
-            std::begin(m_files),
-            std::end(m_files),
-            std::back_inserter(keys),
-            [](auto const& pair) {{ return pair.first; }}
-        );
-
-        return keys;
+        std::vector<std::string> file_names;
+        for(auto const& file: m_files) file_names.push_back(file.first);
+        return file_names;
     }}
 
 private:
@@ -69,7 +73,7 @@ FILE_VARIABLE_DEFINITION = """
 const uint8_t {class_name}::{name}_data[{size}] = {{{data}}};
 const uint64_t {class_name}::{name}_size = {size};
 """
-MAP_ENTRY = "    {{ \"{file_name}\", {{ {class_name}::{name}_data, {class_name}::{name}_size}} }},\n"
+MAP_ENTRY = "    {{ \"{file_name}\", {class_name}::file{{ {class_name}::{name}_data, {class_name}::{name}_size}} }},\n"
 
 def generate(files, output_path, class_name, namespace):
     embed_files = []

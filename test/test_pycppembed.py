@@ -24,10 +24,15 @@ def test_pycppembed(testdirectory):
     if os.name != 'posix':
         return
 
-    cpp.run('g++ main.cpp binaries.cpp -o test_binaries')
+    cpp.run('g++ -std=c++11 main.cpp binaries.cpp -o test_binaries')
     output = cpp.run('./test_binaries')
     assert output.stdout.match('*binary1 size: 42*')
-    assert output.stdout.match('*binary2 size: 42*')
+    assert output.stdout.match('*binary1 first byte: 33*')
+    assert output.stdout.match('*binary1 last byte: 236*')
+    assert output.stdout.match('*binary2 size: 30*')
+    assert output.stdout.match('*binary2 first byte: 9*')
+    assert output.stdout.match('*binary2 last byte: 120*')
+    assert output.stdout.match('*file names: binary_files/binary1.bin binary_files/binary2.bin*')
 
 def test_pycppembed_help(testdirectory):
     output = testdirectory.run('pycppembed --help')

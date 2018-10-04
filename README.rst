@@ -68,9 +68,9 @@ image file::
 
     int main()
     {
+        assert(pycppembed::images::has_file("icon.png"));
         auto icon = pycppembed::images::get_file("icon.png");
-        assert(icon.data != nullptr);
-        std::cout << "icon size: " << icon.size << std::endl;
+        std::cout << "icon size: " << icon.m_size << std::endl;
         return 0;
     }
 
@@ -78,6 +78,6 @@ image file::
 We add this to the file sources/main.cpp, and compile the project::
 
     cd sources/
-    g++ main.cpp images.cpp -o example
+    g++ -std=c++11 main.cpp images.cpp -o example
     ./example
     > Size of img: 15786
