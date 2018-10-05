@@ -11,11 +11,12 @@ def test_pycppembed(testdirectory):
     cpp = testdirectory.mkdir("cpp")
     cpp.copy_files('test/data/main.cpp')
     cmd = ['pycppembed']
-    cmd += ['binary_files/binary1.bin']
-    cmd += ['binary_files/binary2.bin']
+    cmd += ['binary1.bin']
+    cmd += ['binary2.bin']
     cmd += ['binaries']
-    cmd += ['cpp/']
+    cmd += ['../cpp/']
     cmd += ['-ns test_pycppembed']
+    cmd += ['-c binary_files']
     testdirectory.run(' '.join(cmd))
 
     assert cpp.contains_file('binaries.hpp')
@@ -32,7 +33,7 @@ def test_pycppembed(testdirectory):
     assert output.stdout.match('*binary2 size: 30*')
     assert output.stdout.match('*binary2 first byte: 9*')
     assert output.stdout.match('*binary2 last byte: 120*')
-    assert output.stdout.match('*file names: binary_files/binary1.bin binary_files/binary2.bin*')
+    assert output.stdout.match('*file names: binary1.bin binary2.bin*')
 
 def test_pycppembed_help(testdirectory):
     output = testdirectory.run('pycppembed --help')

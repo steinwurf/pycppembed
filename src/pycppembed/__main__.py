@@ -16,17 +16,26 @@ def is_valid_dir(parser, arg):
     else:
         return arg
 
-def is_valid_glob(parser, arg):
-    return glob.glob(arg)
-
 def cli():
     parser = argparse.ArgumentParser(
         description='Commandline options',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    parser.add_argument(
+        '--cwd',
+        '-c',
+        type=lambda arg: is_valid_dir(parser, arg),
+        default='.',
+        help='Working directory. This can be used for creating proper keys for '
+             'each file.')
+    args, remaining = parser.parse_known_args()
+
+    old_cwd = os.getcwd()
+    os.chdir(args.cwd)
+
     parser.add_argument(
         'inputs',
         nargs='+',
-        type=lambda arg: is_valid_glob(parser, arg),
         help='file to embed into .cpp file')
     parser.add_argument(
         'class_name',
@@ -42,16 +51,20 @@ def cli():
         default='pycppembed',
         help='namespace to use')
 
-    args = parser.parse_args()
-    files = sum(args.inputs, [])
+    args = parser.parse_args(remaining)
+
+    files = sum([glob.glob(i) for i in args.inputs], [])
     print("Embedding the following files:")
     for f in sorted(files):
         print(f)
+
     pycppembed.generator.generate(
         files=files,
         class_name=args.class_name,
         output_path=args.output_path,
         namespace=args.namespace)
+
+    os.chdir(old_cwd)
 
 if __name__ == "__main__":
     cli()
