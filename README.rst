@@ -2,7 +2,7 @@ pycppembed
 ==========
 .. image:: ./icon.png
 
-.. image:: https://img.shields.io/appveyor/ci/SteinwurfApS/pycppembed/master.svg?style=flat-square&logo=appveyor
+.. image:: https://ci.appveyor.com/api/projects/status/gbmjbd46rxrp0r23?svg=true
     :target: https://ci.appveyor.com/project/SteinwurfApS/pycppembed
 
 .. image:: https://travis-ci.org/steinwurf/versjon.svg?branch=master
