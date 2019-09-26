@@ -5,8 +5,8 @@ pycppembed
 .. image:: https://img.shields.io/appveyor/ci/SteinwurfApS/pycppembed/master.svg?style=flat-square&logo=appveyor
     :target: https://ci.appveyor.com/project/SteinwurfApS/pycppembed
 
-.. image:: https://img.shields.io/travis-ci/steinwurf/pycppembed/master.svg?style=flat-square&logo=travis
-    :target: https://travis-ci.org/steinwurf/pycppembed
+.. image:: https://travis-ci.org/steinwurf/versjon.svg?branch=master
+    :target: https://travis-ci.org/steinwurf/versjon
 
 pycppembed is a python c++ resource compiler.
 
